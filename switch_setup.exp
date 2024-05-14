@@ -19,6 +19,14 @@ expect "(config)#"
 send "hostname MySwitch\r"
 expect "(config)#"
 
+# Create VLAN
+send "vlan 10\r"
+expect "(config-vlan)#"
+send "name VLAN10\r"
+expect "(config-vlan)#"
+send "exit\r"
+expect "(config)#"
+
 send "interface GigabitEthernet0/1\r"
 expect "(config-if)#"
 
@@ -31,6 +39,24 @@ expect "(config-if)#"
 send "no shutdown\r"
 expect "(config-if)#"
 
+send "exit\r"
+expect "(config)#"
+
+# Configure bandwidth limit on port
+send "srr-queue bandwidth limit 50\r"
+expect "(config-if)#"
+send "exit\r"
+expect "(config)#"
+
+# Create ACL to block sites
+send "ip access-list extended BLOCK_SITES\r"
+expect "(config-ext-nacl)#"
+send "deny tcp any host 8.8.8.8 eq www\r"
+expect "(config-ext-nacl)#"
+send "deny tcp any host 8.8.4.4 eq www\r"
+expect "(config-ext-nacl)#"
+send "permit ip any any\r"
+expect "(config-ext-nacl)#"
 send "exit\r"
 expect "(config)#"
 
