@@ -75,6 +75,18 @@ expect "(config-ext-nacl)#"
 send "exit\r"
 expect "(config)#"
 
+# Configure DHCP
+send "ip dhcp pool VLAN10\r"
+expect "(dhcp-config)#"
+send "network 192.168.1.0 255.255.255.0\r"
+expect "(dhcp-config)#"
+send "default-router 192.168.1.1\r"
+expect "(dhcp-config)#"
+send "dns-server 8.8.8.8\r"
+expect "(dhcp-config)#"
+send "exit\r"
+expect "(config)#"
+
 # Save configuration
 send "write memory\r"
 expect "(config)#"
