@@ -1,0 +1,43 @@
+#!/usr/bin/expect -f
+
+# Set variables
+set switch_ip "192.168.0.1"
+set switch_username "admin"
+set switch_password "password"
+
+# SSH into the switch
+spawn ssh $switch_username@$switch_ip
+expect "password:"
+send "$switch_password\r"
+expect "#"
+
+# Enter configuration mode
+send "configure terminal\r"
+expect "(config)#"
+
+# Configure switch settings
+send "hostname MySwitch\r"
+expect "(config)#"
+
+send "interface GigabitEthernet0/1\r"
+expect "(config-if)#"
+
+send "description Uplink to Router\r"
+expect "(config-if)#"
+
+send "ip address 192.168.1.1 255.255.255.0\r"
+expect "(config-if)#"
+
+send "no shutdown\r"
+expect "(config-if)#"
+
+send "exit\r"
+expect "(config)#"
+
+# Save configuration
+send "write memory\r"
+expect "(config)#"
+
+# Exit configuration mode and close SSH connection
+send "exit\r"
+expect eof
