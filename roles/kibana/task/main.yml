@@ -4,9 +4,3 @@
     name: kibana
     state: present
   when: ansible_distribution == 'Ubuntu'
-
-- name: Install Kibana
-  yum:
-    name: kibana
-    state: present
-  when: ansible_distribution == 'CentOS'
