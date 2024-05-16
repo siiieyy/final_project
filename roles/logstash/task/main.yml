@@ -4,9 +4,3 @@
     name: logstash
     state: present
   when: ansible_distribution == 'Ubuntu'
-
-- name: Install Logstash
-  yum:
-    name: logstash
-    state: present
-  when: ansible_distribution == 'CentOS'
